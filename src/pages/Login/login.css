@@ -1,0 +1,99 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+}
+
+.welcome, .form-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome {
+    width: 30vw;
+    height: 100%;
+
+    background-color: var(--background-verde);
+
+    color: #FFFFFF;
+}
+.welcome p, .welcome h1 {
+    width: 90%;
+}
+.welcome h1 {
+    font-size: 2.4rem;
+    margin-bottom: .8rem;
+}
+.welcome p {
+    opacity: .6;
+}
+
+.form-part {
+    width: 70vw;
+    height: 100%;
+}
+
+.form-part h1 {
+    color: var(--cor-titulo-verde);
+
+    margin: 4rem 0 2rem 0;
+}
+
+.form-part form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-part input {
+    width: 20rem;
+    height: 2.8rem;
+
+    border-radius: 8px;
+    border: 1px solid #A8A8B3;
+    outline: none;
+
+    padding: .8rem;
+
+    font-size: 1rem;
+}
+.form-part input:focus {
+    border: 2px solid var(--cor-titulo-verde);
+}
+
+.form-part input:nth-child(2) {
+    margin: .8rem 0 1.6rem 0;
+}
+
+.form-part button {
+    height: 2.2rem;
+    
+    background-color: var(--background-verde);
+
+    border-radius: 8px;
+    border: none;
+
+    font-family: 'Montserrat';
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1rem;
+
+    cursor: pointer;
+    transition: .4s;
+
+    margin-bottom: 0.8rem;
+}
+
+.form-part button:hover {
+    transform: scale(1.05);
+}
+
+.form-part p {
+    font-size: .7rem;
+}
+
+.form-part a {
+    color: var(--cor-titulo-verde);
+}

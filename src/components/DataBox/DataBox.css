@@ -1,0 +1,17 @@
+.data-box {
+    height: 10rem;
+    
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;;
+
+    padding: 1rem;
+
+    border-radius: 8px;
+    border: 1px solid #d8d8d8;
+}
+
+.data-box span {
+    font-size: 1.5rem;
+}

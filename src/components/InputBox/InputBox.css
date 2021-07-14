@@ -1,0 +1,10 @@
+label {
+    margin: 1rem 0 .4rem 0;
+
+    display: inline-block;
+
+    color: rgb(20, 20, 20, .6);
+    font-weight: 700;
+
+    font-size: 0.8rem;
+}

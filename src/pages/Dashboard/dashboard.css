@@ -1,0 +1,80 @@
+.container-dashboard {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+}
+
+.container-dashboard nav {
+    width: 5vw;
+
+    background-color: var(--background-verde);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container-dashboard nav .logo-salvus-dashboard {
+    width: 2rem;
+
+    margin: 1.5rem 0 3rem 0;
+}
+
+.container-dashboard nav .section-box {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 1rem 0;
+
+    transition: linear .2s;
+    cursor: pointer;
+}
+
+.container-dashboard nav .section-box:hover {
+    background-color: var(--cor-titulo-verde);
+}
+
+.container-dashboard nav .section-box img {
+    width: 1.2rem;
+}
+
+.main-dashboard {
+    width: 100%;
+
+    padding: 2rem 3rem;
+}
+
+.content .welcome-dashboard {
+    display: flex;
+    justify-content: flex-end;
+
+    font-size: 1.5rem;
+    color: var(--cor-titulo-verde);
+
+    margin-bottom: 5rem;
+}
+
+.container-dashboard main .data-quantity {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: .8rem;
+}
+
+.content .title-charts {
+    color: var(--cor-titulo-verde);
+    font-size: 1.5rem;
+
+    margin: 1.8rem 0 .5rem 0;
+}
+
+.charts {
+    background: #FFFFFF;
+
+    border-radius: 8px;
+    border: 1px solid #d8d8d8;
+
+    padding: 1.3rem
+}
