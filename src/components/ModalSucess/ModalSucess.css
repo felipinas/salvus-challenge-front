@@ -2,7 +2,7 @@
     width: 100%;
     height: 100vh;
 
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 10;
@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
 
-    background-color: RGB(0, 0, 0, .75);
+    background-color: RGB(0, 0, 0, .90);
 }
 
 .container-sucess {

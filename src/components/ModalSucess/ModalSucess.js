@@ -4,9 +4,9 @@ import './ModalSucess.css';
 
 import SucessIcon from '../../assets/icons/sucess.svg';
 
-function ModalSucess() {
+function ModalSucess(props) {
   return (
-      <div className="modal-sucess">
+      <div className="modal-sucess" style={props.style}>
           <div className="container-sucess">
               <img src={SucessIcon} alt="Ícone de sucesso" />
 

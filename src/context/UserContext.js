@@ -4,8 +4,10 @@ export const UserContext = createContext()
 
 function UserProvider(props) {
     const [userData, setUserData] = useState({
+        email: '',
+        name: '',
         isLogged: false,
-        isAdmin: true
+        isAdmin: false
     });
 
     return (

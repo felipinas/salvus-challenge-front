@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect } from 'react-router-dom';
 
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '../context/UserContext';
 
 import { Login, Register, Dashboard } from '../pages';
 
