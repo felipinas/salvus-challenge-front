@@ -63,18 +63,28 @@
     gap: .8rem;
 }
 
-.content .title-charts {
+.content .title-charts, .title-registers {
     color: var(--cor-titulo-verde);
     font-size: 1.5rem;
 
-    margin: 1.8rem 0 .5rem 0;
+    margin: 1.8rem 0 .8rem 0;
 }
 
-.charts {
+.charts, .all-users {
     background: #FFFFFF;
 
     border-radius: 8px;
     border: 1px solid #d8d8d8;
+}
 
-    padding: 1.3rem
+.charts {
+    padding: 1.3rem;
+    margin-bottom: 2rem
+}
+
+.all-users {
+    padding: 1.3rem 0;
+
+    max-height: 500px;
+    overflow: auto;
 }

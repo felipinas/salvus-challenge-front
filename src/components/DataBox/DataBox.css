@@ -12,6 +12,13 @@
     border: 1px solid #d8d8d8;
 }
 
+.data-box h1 {
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
 .data-box span {
-    font-size: 1.5rem;
+    font-size: 2rem;
+
+    font-weight: 700;
 }

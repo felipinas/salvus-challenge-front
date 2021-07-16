@@ -1,0 +1,39 @@
+.user-line {
+    width: 100%;
+
+    padding: 1rem 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #d8d8d8;
+
+    color: var(--cor-titulo-verde);
+}
+
+.user-line:hover {
+    background-color: #d8d8d8;
+}
+
+.user-line h1 {
+    font-size: 1rem;
+}
+
+.user-line .user-info {
+    display: grid;
+    grid-template-columns: repeat(2, 200px) 100px;
+    gap: 2rem;
+}
+
+.location, .specialty, .contact  {
+    display: flex;
+    flex-direction: column;
+}
+
+.location p, .specialty p, .contact p {
+    font-weight: 700;
+    font-size: 1rem;
+
+    margin-bottom: .5rem;
+}
