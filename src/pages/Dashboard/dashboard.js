@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Pie } from 'react-chartjs-2';
 
 import { DataBox, UserLine } from '../../components';
 
@@ -29,28 +30,26 @@ function Dashboard() {
 
   };
 
+  const getQtdSpecialty = specialtyName => {
+
+    return usersData.filter(user => user["specialty"] === specialtyName ).length;
+
+  };
+
   const updateDataSpecialty = () => {
 
-    const doctorSpecialty = usersData.filter(user => {
-      return user["specialty"] === "medico"
-    })
-      
-    const tecSpecialty = usersData.filter(user => {
-      return user["specialty"] === "tec-enfermagem"
-    })
+    const doctorSpecialty = getQtdSpecialty("medico");
 
-    const phonoSpecialty = usersData.filter(user => {
-      return user["specialty"] === "fono"
-    })
+    const tecSpecialty = getQtdSpecialty("tec-enfermagem");
 
-    const nurseSpecialty = usersData.filter(user => {
-      return user["specialty"] === "enfermeiro"
-    })
+    const phonoSpecialty = getQtdSpecialty("fono");
 
-    setDoctorsQuantity(doctorSpecialty.length)
-    setTecQuantity(tecSpecialty.length)
-    setPhonoQuantity(phonoSpecialty.length)
-    setNurseQuantity(nurseSpecialty.length)
+    const nurseSpecialty = getQtdSpecialty("enfermeiro");
+
+    setDoctorsQuantity(doctorSpecialty);
+    setTecQuantity(tecSpecialty);
+    setPhonoQuantity(phonoSpecialty);
+    setNurseQuantity(nurseSpecialty);
 
   };
 
@@ -77,8 +76,6 @@ function Dashboard() {
             <img src={dashboardIcon} alt="Dashboard" />
           </div>
         </nav>
-
-        {}
         
         <main className="main-dashboard">
           <div className="content">
@@ -123,11 +120,39 @@ function Dashboard() {
             </div>
 
             <h1 className="title-charts">
-                Gráficos
+              Gráfico
             </h1>
 
             <div className="charts">
-              Gráficos aqui
+
+              <Pie
+              data={{
+                labels: ["Médico", "Fonoaudiólogos", "Enfermeiros", "Téc. de enfermagem"],
+                datasets: [{
+                  label: 'Quantidade de cada área',
+                  data: [doctorsQuantity, phonoQuantity, nurseQuantity, tecQuantity],
+                  backgroundColor: [
+                      'rgba(42, 146, 55, 0.7)',
+                      'rgba(255, 99, 132, 0.7)',
+                      'rgba(255, 206, 86, 0.7)',
+                      'rgba(201, 203, 207, 0.7)'
+                  ],
+                  borderColor: [
+                      'rgba(42, 146, 55, 1)',
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(201, 203, 207, 1)'
+                  ],
+                  borderWidth: 2
+                }]
+              }}
+              height={300}
+              width={300}
+              options={{
+                maintainAspectRatio: false
+              }}
+              />
+
             </div>
 
             <h1 className="title-registers">
