@@ -50,6 +50,7 @@
 
 .toRight {
     text-align: right;
+    margin-left: 10rem;
 }
 
 .closeModal {
