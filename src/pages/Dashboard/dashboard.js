@@ -24,8 +24,7 @@ function Dashboard() {
   const [totalQuantity, setTotalQuantity] = useState(0);
 
   const dateToBrazilDate = date => {
-    date = new Date(date)
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    return `${date.slice(8,10)}/${date.slice(5,7)}/${date.slice(0,4)}`
   }
 
   const catchUsersData = async () => {
