@@ -10,6 +10,12 @@
     border-bottom: 1px solid #d8d8d8;
 
     color: var(--cor-titulo-verde);
+
+    cursor: pointer;
+}
+
+.user-line:hover {
+    text-decoration: underline;
 }
 
 .user-line:hover {

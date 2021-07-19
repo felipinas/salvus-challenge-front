@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Pie } from 'react-chartjs-2';
 
 import { DataBox, UserLine } from '../../components';
+
+import { UserContext } from '../../context/UserContext';
 
 import api from '../../services/api';
 
@@ -13,11 +15,18 @@ import dashboardIcon from '../../assets/icons/dashboard.svg';
 function Dashboard() {
   const [usersData, setUsersData] = useState([]);
 
+  const [userData, setUserData] = useContext(UserContext);
+
   const [doctorsQuantity, setDoctorsQuantity] = useState(0);
   const [tecQuantity, setTecQuantity] = useState(0);
   const [phonoQuantity, setPhonoQuantity] = useState(0);
   const [nurseQuantity, setNurseQuantity] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
+
+  const dateToBrazilDate = date => {
+    date = new Date(date)
+    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+  }
 
   const catchUsersData = async () => {
     
@@ -82,7 +91,7 @@ function Dashboard() {
 
             <div className="welcome-dashboard">
               <p>
-                Olá, João Felipe
+                Olá, {userData.name}
               </p>
             </div>
 
@@ -162,18 +171,34 @@ function Dashboard() {
             <div className="all-users">
               
               {
-                usersData?.map( ({_id, name, location, specialty, tel}) => {
+                usersData?.map( ({
+                  _id,
+                  name,
+                  location,
+                  specialty,
+                  tel,
+                  maxDistance,
+                  email,
+                  registerNumber,
+                  profi,
+                  birthDate}) => {
 
                   if (specialty !== "administrar") {
                     return (
                     <UserLine
                     key={_id}
                     name={name}
+                    email={email}
                     tel={tel}
                     location={location}
                     specialty={specialty}
+                    registerNumber={registerNumber}
+                    profi={profi}
+                    date={dateToBrazilDate(birthDate)}
+                    maxDistance={maxDistance}
                     />
                   );}
+
                 })
               }
 
