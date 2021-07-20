@@ -1,0 +1,10 @@
+.buttons-update {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 2rem;
+}
+
+.delete-button {
+    background-color: #FF6961;
+}

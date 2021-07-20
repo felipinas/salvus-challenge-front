@@ -11,7 +11,7 @@ function ModalSucess(props) {
               <img src={SucessIcon} alt="Ícone de sucesso" />
 
               <h1>
-                  Cadastro realizado!
+                  {props.title}
               </h1>
 
               <a href="/">

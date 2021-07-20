@@ -35,13 +35,14 @@ function Login() {
         email: userData.data.email,
         name: userData.data.name,
         isLogged: true,
-        isAdmin: userData.data.isAdmin
+        isAdmin: userData.data.isAdmin,
+        _id: userData.data._id
       }));
 
       if (userData.data.isAdmin) {
         history.push('/dashboard')
       } else {
-        history.push('/update')
+        history.push('/atualizar')
       }
 
     } catch (error) {

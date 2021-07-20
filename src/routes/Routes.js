@@ -7,7 +7,7 @@ import {
 
 import { UserContext } from '../context/UserContext';
 
-import { Login, Register, Dashboard } from '../pages';
+import { Login, Register, Dashboard, Update } from '../pages';
 
 function Routes() {
   const [userData, setUserData] = useContext(UserContext)
@@ -20,9 +20,12 @@ function Routes() {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/cadastro" exact component={Register} />
+
         <Route path="/dashboard" exact>
           {isLogged && isAdmin ? <Dashboard /> : <Redirect to="/" />}
         </Route>
+
+        <Route path="/atualizar" exact component={Update} />
       </Switch>
     
     </BrowserRouter>

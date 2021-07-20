@@ -1,4 +1,6 @@
-import React,{ useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import './update.css';
 
 import { InputBox, SelectBox, ModalSucess } from '../../components';
 
@@ -6,9 +8,9 @@ import ReactNotification from 'react-notifications-component';
 import { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
-import api from '../../services/api';
+import { UserContext } from '../../context/UserContext';
 
-import './register.css';
+import api from '../../services/api';
 
 import LogoBranca from '../../assets/logo-salvus-branca.svg';
 import DoctorIcon from '../../assets/icons/doctor.svg';
@@ -16,8 +18,10 @@ import NurseIcon from '../../assets/icons/nurse.svg';
 import TecNurseIcon from '../../assets/icons/tec-nurse.svg';
 import PhonoIcon from '../../assets/icons/phono.svg';
 
-function Register() {
-    const [modalSucessSituation, setModalSucessSituation] = useState(false);
+function Update() {
+    const [userData, setUserData] = useContext(UserContext);
+
+    const [userDataUpdate, setUserDataUpdate] = useState({});
 
     const [name, setName] = useState('');
     const [birthDate, setBirthDate] = useState('');
@@ -27,14 +31,29 @@ function Register() {
     const [gender, setGender] = useState('');
     const [profi, setProfi] = useState('');
     const [registerNumber, setRegisterNumber] = useState('');
-    const [specialty, setSpecialty] = useState('medico');
+    const [specialty, setSpecialty] = useState('');
     const [location, setLocation] = useState('');
     const [maxDistance, setMaxDistance] = useState('');
 
-    async function registrationHandler(e) {
-        e.preventDefault();
+    const [modalDeleteSituation, setModalDeleteSituation] = useState(false);
+    const [modalUpdateSituation, setModalUpdateSituation] = useState(false);
+
+    const catchUserData = async () => {
+    
         try {
-            await api.post('/user', { 
+            const user = await api.get(`/user/${userData._id}`);
+            setUserDataUpdate(user.data);
+        } catch (error) {
+            console.log(error)
+        }
+    
+    };
+
+    const updateHandler = async e => {
+        e.preventDefault();
+
+        try {
+            await api.post(`/update/${userData._id}`, {
                 name,
                 birthDate,
                 email,
@@ -47,33 +66,65 @@ function Register() {
                 location,
                 maxDistance
             });
-
-            setModalSucessSituation(true)
+            
+            setModalUpdateSituation(true);
             
         } catch (error) {
-            
             store.addNotification({
-                title: "Houve um erro! :(",
-                message: "Ou você já tem conta ou escreveu algo errado, tenta dá uma checada! ",
+                title: "Houve algum erro!",
+                message: "Checa se você escreveu tudo certo ou não esqueceu de nada :D",
                 type: "danger",
                 insert: "top",
                 container: "bottom-right",
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
-                id: "bad",
                 dismiss: {
                   duration: 5000,
                   onScreen: true
                 }
             });
-            
         }
     }
+
+    const deleteHandler = async e => {
+        e.preventDefault();
+
+        try {
+            await api.delete(`/user/${userData._id}`,  {
+                headers: {
+                    auth: userData._id
+                }
+            }).then(setModalDeleteSituation(true))
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => catchUserData(), []);
+
+    useEffect(() => {
+
+        setName(userDataUpdate.name);
+        setBirthDate(userDataUpdate.birthDate);
+        setEmail(userDataUpdate.email);
+        setTel(userDataUpdate.tel);
+        setGender(userDataUpdate.gender);
+        setProfi(userDataUpdate.profi);
+        setRegisterNumber(userDataUpdate.registerNumber);
+        setSpecialty(userDataUpdate.specialty);
+        setLocation(userDataUpdate.location);
+        setMaxDistance(userDataUpdate.maxDistance);
+        
+    }, [userDataUpdate])
 
     return (
         <>
             <ReactNotification/>
-            {modalSucessSituation ? <ModalSucess title="Cadastro realizado!"/> : null}
+
+            {modalDeleteSituation ? <ModalSucess title="Cadastro removido!"/> : null}
+
+            {modalUpdateSituation ? <ModalSucess title="Alterações feitas!"/> : null}
 
             <header className="header-register">
                 <img src={LogoBranca} alt="Logo da Salvus" />
@@ -81,17 +132,15 @@ function Register() {
             
             <main className="main-register">
                 <h1>
-                    Que incrível que <br />
-                    você deseja impactar <br />
-                    a saúde no Brasil.
+                    Aqui você pode modificar <br />
+                    seus dados ou deletar o cadastro. <br />
                 </h1>
 
                 <p>
-                    o primeiro passo é preencher esse <br />
-                    formulário de inscrição.
+                    apenas mude abaixo :)
                 </p>
 
-                <form action="" onSubmit={registrationHandler}>
+                <form action="" onSubmit={updateHandler}>
                     <fieldset>
                         <legend>Seu dados</legend>
 
@@ -106,6 +155,7 @@ function Register() {
                             name="name"
                             id="name"
                             required
+                            value={name}
                             onChange={e => setName(e.target.value)}
                             />
                         </InputBox>
@@ -119,6 +169,7 @@ function Register() {
                             name="date"
                             id="date"
                             required
+                            value={birthDate}
                             onChange={e => setBirthDate(e.target.value)}
                             />
                         </InputBox>
@@ -132,6 +183,7 @@ function Register() {
                             name="email"
                             id="email"
                             required
+                            value={email}
                             onChange={e => setEmail(e.target.value)}
                             />
                         </InputBox>
@@ -158,6 +210,7 @@ function Register() {
                             name="tel" 
                             d="tel"
                             required
+                            value={tel}
                             onChange={e => setTel(e.target.value)}
                             />
                         </InputBox>
@@ -166,7 +219,7 @@ function Register() {
                         title="Gênero"
                         htmlFor="gender"
                         >
-                            <select required name="gender" id="gender" onChange={e => setGender(e.target.value)}>
+                            <select required value={gender} name="gender" id="gender" onChange={e => setGender(e.target.value)}>
                                 <option value=""></option>
                                 <option value="o">Outro</option>
                                 <option value="f">Feminino</option>
@@ -191,6 +244,7 @@ function Register() {
                             name="pro"
                             id="pro"
                             required
+                            value={profi}
                             onChange={e => setProfi(e.target.value)}
                             />
                         </InputBox>
@@ -203,6 +257,7 @@ function Register() {
                             type="text"
                             name="registerNumber"
                             id="registerNumber"
+                            value={registerNumber}
                             onChange={e => setRegisterNumber(e.target.value)}
                             />
                         </InputBox>
@@ -287,6 +342,7 @@ function Register() {
                             name="localization"
                             id="localization"
                             required
+                            value={location}
                             onChange={e => setLocation(e.target.value)}
                             />
                         </InputBox>
@@ -300,18 +356,29 @@ function Register() {
                             name="route"
                             id="route"
                             required
+                            value={maxDistance}
                             placeholder="Até quantos quilometros você pode ir além de sua cidade?"
                             onChange={e => setMaxDistance(e.target.value)}
                             />
                         </InputBox>
 
                     </fieldset>
-                
-                    <button type="submit" >Cadastrar</button>
+
+                    <div className="buttons-update">
+                        <button
+                        className="delete-button"
+                        onClick={deleteHandler}
+                        >
+                            Excluir cadastro
+                        </button>
+
+                        <button type="submit" onClick={updateHandler}>Atualizar</button>
+                    </div>
+                    
                 </form>
             </main>
         </>
-  );
+    );
 }
 
-export default Register;
+export default Update;
